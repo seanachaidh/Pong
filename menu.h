@@ -29,7 +29,7 @@ typedef struct TPong_menu {
 
 
 TPong_menu_item* create_menu_item(char* title, char* value);
-ALLEGRO_BITMAP* menu_item_create_bitmap(int width, int height);
+ALLEGRO_BITMAP* menu_item_create_bitmap(TPong_menu_item* item, width, int height);
 void menu_item_free(TPong_menu_item* menu_item);
 
 PPong_menu* create_menu(void);

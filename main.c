@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
@@ -11,7 +12,7 @@
 void init_program() {
     al_init();
     al_install_keyboard();
-    
+
     //for the fonts
     al_init_font_addon();
     al_init_ttf_addon();

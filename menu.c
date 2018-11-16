@@ -20,8 +20,11 @@ ALLEGRO_EVENT_QUEUE* create_event_queue(ALLEGRO_DISPLAY* display) {
     return retval;
 }
 
-ALLEGRO_BITMAP* menu_item_create_bitmap(int width, int height) {
-    return NULL;
+ALLEGRO_BITMAP* menu_item_create_bitmap(TPong_menu_item* item, int width, int height) {
+    size_t final_string_size = strlen(item->value) + strlen(item->title) + 3;
+    char* final_string = (char*) malloc(final_string_size * sizeof(char));
+    sprintf(final_string, "%s: %s", item->title, item->value);
+    
 }
 
 TPong_menu_item* create_menu_item(char* title, char* value) {
