@@ -37,7 +37,7 @@ int main(int argc, char **argv)
     init_program();
     
     my_display = create_display();
-    menu = create_menu();
+    menu = create_menu((800 - 100), (600 - 100), al_load_ttf_font("funky.otf", 18, 0));
 
     run_menu(menu, my_display);
     

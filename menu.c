@@ -20,11 +20,26 @@ ALLEGRO_EVENT_QUEUE* create_event_queue(ALLEGRO_DISPLAY* display) {
     return retval;
 }
 
-ALLEGRO_BITMAP* menu_item_create_bitmap(TPong_menu_item* item, int width, int height) {
+ALLEGRO_BITMAP* menu_item_create_bitmap(TPong_menu_item* item, ALLEGRO_FONT* used_font, int width, int height) {
+    ALLEGRO_STATE prevstate;
+    al_store_state(&prevstate, ALLEGRO_STATE_ALL);
+
+    //prepare transformation
+    ALLEGRO_TRANSFORM t;
+    al_identity_transform(&t);
+    al_scale_transform(&t, width, height);
+    al_use_transform(&t);
+
     size_t final_string_size = strlen(item->value) + strlen(item->title) + 3;
     char* final_string = (char*) malloc(final_string_size * sizeof(char));
     sprintf(final_string, "%s: %s", item->title, item->value);
     
+    ALLEGRO_BITMAP *retval = al_create_bitmap(width, height);
+    al_set_target_bitmap(retval);
+    al_draw_text(used_font, al_map_rgb(255, 255, 255), 0, 0, ALLEGRO_ALIGN_CENTER, final_string);
+
+    al_restore_state(&prevstate);
+    return retval;
 }
 
 TPong_menu_item* create_menu_item(char* title, char* value) {
@@ -46,12 +61,18 @@ void menu_item_free(TPong_menu_item* menu_item) {
     free(menu_item);
 }
 
-PPong_menu* create_menu(void){
+PPong_menu* create_menu(int width, int height, ALLEGRO_FONT *font){
     PPong_menu* retval = (PPong_menu*) malloc(sizeof(PPong_menu));
 
     retval->selected_item = 0;
     retval->item_amount = 0;
     retval->menu_items = NULL;
+
+    // Moet ik dit verwijderen bij vernietiging object?
+    retval->used_font = font;
+
+    retval->width = width;
+    retval->height = height;
 
     return retval;
 }
@@ -83,6 +104,19 @@ void menu_select_item(PPong_menu* menu, int item) {
         menu->selected_item = 0;
     } else if (menu->selected_item >= menu->item_amount) {
         menu->selected_item = (menu->item_amount - 1);
+    }
+}
+
+void menu_draw(PPong_menu* menu) {
+    //TODO make the 10 pixel margin a variable
+    int item_height = round(menu->height / menu->item_amount) - 10;
+    ALLEGRO_BITMAP* item_bitmaps[menu->item_amount];
+    size_t i;
+
+    for(i = 0; i < menu->item_amount; i++){
+        item_bitmaps[i] = menu_item_create_bitmap(menu->menu_items[i], menu->used_font, menu->width, item_height);
+        //now....? We draw!!!
+        al_draw_bitmap(item_bitmaps[i], item_height*(i+1), menu->width, 0);
     }
 }
 
@@ -119,5 +153,7 @@ void run_menu(PPong_menu* menu, ALLEGRO_DISPLAY* display){
                     break;
             }
         }
+        menu_draw(menu);
+        al_flip_display();
     }
 }
