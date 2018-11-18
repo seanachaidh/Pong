@@ -8,13 +8,16 @@ pkg_check_modules(ALLEGRO REQUIRED allegro-5 allegro_main-5 allegro_font-5 alleg
 include(CTest)
 enable_testing()
 
-add_executable(pong main.c menu.c afbeeldingen/arrow.png afbeeldingen/funky.otf)
+set(CMAKE_BUILD_TYPE Debug)
+
+add_executable(pong main.c menu.c afbeeldingen/arrow.png afbeeldingen/funky.otf afbeeldingen/bradly.ttf)
 target_link_libraries(pong ${ALLEGRO_LDFLAGS})
 target_compile_options(pong PRIVATE ${ALLEGRO_CFLAGS})
 
 
 set(RESOURCE_FILES afbeeldingen/arrow.png
-                   afbeeldingen/funky.otf)
+                   afbeeldingen/funky.otf
+                   afbeeldingen/bradly.ttf)
 set_target_properties(pong PROPERTIES
     MACOSX_BUNDLE TRUE
     MACOSX_FRAMEWORK_IDENTIFIER org.seanachaidh.pong

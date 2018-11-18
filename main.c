@@ -26,6 +26,7 @@ void shutdown_program() {
 
 ALLEGRO_DISPLAY *create_display(void) {
     ALLEGRO_DISPLAY* retval = al_create_display(800, 600);
+    //al_set_new_display_refresh_rate(60);
     return retval;
 }
 
@@ -37,7 +38,8 @@ int main(int argc, char **argv)
     init_program();
     
     my_display = create_display();
-    menu = create_menu((800 - 100), (600 - 100), al_load_ttf_font("funky.otf", 18, 0));
+    menu = create_menu(50, 50, (800 - 100), (600 - 100), al_load_ttf_font("bradly.ttf", 25, 0));
+    
 
     run_menu(menu, my_display);
     

@@ -29,15 +29,17 @@ typedef struct TPong_menu {
     ALLEGRO_FONT* used_font;
 
     int width, height;
+    int x, y;
+    bool dirty;
 
 } PPong_menu;
 
 
 TPong_menu_item* create_menu_item(char* title, char* value);
-ALLEGRO_BITMAP* menu_item_create_bitmap(TPong_menu_item* item, ALLEGRO_FONT* font, int width, int height);
+ALLEGRO_BITMAP* menu_item_create_bitmap(TPong_menu_item* item, ALLEGRO_FONT* font, ALLEGRO_COLOR color, int width, int height);
 void menu_item_free(TPong_menu_item* menu_item);
 
-PPong_menu* create_menu(int width, int height, ALLEGRO_FONT *font);
+PPong_menu* create_menu(int x, int y, int width, int height, ALLEGRO_FONT *font);
 void menu_add_item(PPong_menu* menu, TPong_menu_item* item);
 void menu_select_item(PPong_menu* menu, int item);
 
