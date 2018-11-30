@@ -10,7 +10,16 @@ enable_testing()
 
 set(CMAKE_BUILD_TYPE Debug)
 
-add_executable(pong main.c menu.c afbeeldingen/arrow.png afbeeldingen/funky.otf afbeeldingen/bradly.ttf)
+set(SOURCE_FILES main.c
+                 game.c
+                 menu.c
+                 ball.c
+                 mainheader.h
+                 menu.h
+                 game.h
+                 ball.h)
+
+add_executable(pong ${SOURCE_FILES} afbeeldingen/arrow.png afbeeldingen/funky.otf afbeeldingen/bradly.ttf)
 target_link_libraries(pong ${ALLEGRO_LDFLAGS})
 target_compile_options(pong PRIVATE ${ALLEGRO_CFLAGS})
 

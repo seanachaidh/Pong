@@ -19,7 +19,8 @@ TPongSprite * create_sprite_ball(int locx, int locy) {
     return retval;
 }
 
-bool sprite_ball_update(TPongSprite* ball, void* ev) {
+bool sprite_ball_update(void* self, void* ev) {
+    TPongSprite *ball = (TPongSprite*) self;
     ALLEGRO_DISPLAY* display = al_get_current_display();
     TPongBallExtra* metadata = (TPongBallExtra*) ball->extra_data;
     TPongSprite* collided_sprite = (TPongSprite*) ev;
@@ -41,5 +42,5 @@ bool sprite_ball_update(TPongSprite* ball, void* ev) {
     ball->x = ball->x + metadata->vel_x;
     ball->y = ball->y + metadata->vel_y;
 
-    
+    return true;
 }

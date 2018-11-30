@@ -1,27 +1,26 @@
 #include "game.h"
 
 TPongGame* create_game() {
-    TPongGame* retval = (TPongGame*) malloc(sizeof(TPongGame));   
+    TPongGame* retval = (TPongGame*) malloc(sizeof(TPongGame));  
 
+    return retval; 
 }
 
 bool sprite_detect_collision(TPongSprite* spriteA, TPongSprite* spriteB) {
-    //We beginnen eerst gewoon met de bouncing box
-    // int spriteAX = spriteA->x;
-    // int spriteAY = spriteA->y;
-    // int spriteBX = spriteB->x;
-    // int spriteBY = spriteB->y;
+    int spriteA_width = al_get_bitmap_width(spriteA->bitmap);
+    int spriteA_height = al_get_bitmap_height(spriteA->bitmap);
+    int spriteB_width = al_get_bitmap_width(spriteB->bitmap);
+    int spriteB_height = al_get_bitmap_height(spriteB->bitmap);
 
-    // int spriteAXX = spriteAX + al_get_bitmap_width(spriteA->bitmap);
-    // int spriteAYY = spriteAY + al_get_bitmap_height(spriteA->bitmap);
-    // int spriteBXX = spriteBX + al_get_bitmap_width(spriteB->bitmap);
-    // int spriteBYY = spriteBY + al_get_bitmap_height(spriteB->bitmap);
-
-    // if((spriteAX - spriteBXX) < 0) {
-    //     return false;
-    // } else if ((spriteA))
-
-    return false;
+    if(
+        spriteA->x < spriteB->x + spriteB_width &&
+        spriteA->x + spriteA_width > spriteB->x &&
+        spriteA->y < spriteB->y + spriteB_height &&
+        spriteA->y + spriteA_height > spriteB->y) {
+            return true;
+        } else {
+            return false;
+        }
 }
 
 TPongVec sprite_calculate_gap(TPongSprite* spriteA, TPongSprite* spriteB) {

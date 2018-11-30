@@ -9,11 +9,12 @@
 typedef struct {
     ALLEGRO_BITMAP* bitmap;
     int x, y;
-    bool (*draw_sprite) (TPongSprite* self);
-    bool (*update_sprite) (TPongSprite* self, void* data);
+    //TODO: Zoek een manier om ervoor te zorgen dat de void pointer hier niet nodig is
+    bool (*draw_sprite) (void* self);
+    bool (*update_sprite) (void* self, void* data);
 
     //An extra data structure encapsulated in the sprite for extra specific info
-    void* extra_data
+    void* extra_data;
 
 } TPongSprite;
 
