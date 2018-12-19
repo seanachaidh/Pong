@@ -9,6 +9,8 @@
 #ifndef mainheader_h
 #define mainheader_h
 
+#define FPS 60
+
 /*
  wordt dit niet all voorzien door allegro?
  */

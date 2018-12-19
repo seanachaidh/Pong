@@ -10,6 +10,6 @@ typedef struct {
 } TPongBallExtra;
 
 TPongSprite * create_sprite_ball(int locx, int locy);
-bool sprite_ball_update(TPongSprite* ball, void* ev);
+bool sprite_ball_update(void* ball, void* ev);
 
 #endif

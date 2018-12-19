@@ -37,3 +37,46 @@ TPongPoint sprite_get_center_point(TPongSprite* sprite) {
 
     return retval;
 }
+
+void run_game(TPongGame* game) {
+    ALLEGRO_EVENT_QUEUE *queue = al_create_event_queue();
+    ALLEGRO_TIMER *timer = al_create_timer(60/FPS);
+    bool inloop = true;
+
+    //REGISTER ALL OUR SOURCES
+    al_register_event_source(queue, al_get_display_event_source(al_get_current_display()));
+    al_register_event_source(queue, al_get_keyboard_event_source());
+    al_register_event_source(queue, al_get_timer_event_source(timer));
+
+    al_start_timer(timer);
+
+    while(inloop) {
+        ALLEGRO_EVENT ev;
+        if(al_get_next_event(queue, &ev)) {
+            if(ev.type == ALLEGRO_EVENT_KEY_DOWN) {
+                // Shakel tussen de verschillende keyboard events
+                switch(ev.keyboard.keycode) {
+                    case ALLEGRO_KEY_RIGHT:
+                        printf("Key right pressed\n");
+                        break;
+                    case ALLEGRO_KEY_LEFT:
+                        printf("Left key pressed\n");
+                        break;
+                    default:
+                        printf("Unknown key pressed: %d\n", ev.keyboard.keycode);
+                }
+            } else if(ev.type == ALLEGRO_EVENT_TIMER) {
+                //TODO draw game here
+            }
+        }
+    }
+}
+
+void game_draw(TPongGame* game) {
+
+    //TODO: Draw possible score
+
+    game->enemy->draw_sprite(game->enemy);
+    game->you->draw_sprite(game->you);
+    game->ball->draw_sprite(game->ball);
+}

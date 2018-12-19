@@ -45,4 +45,9 @@ bool sprite_detect_collision(TPongSprite* spriteA, TPongSprite* spriteB);
 
 TPongGame* create_game();
 
+//The main game
+void run_game(TPongGame* game);
+void game_draw(TPongGame* game);
+
+
 #endif
